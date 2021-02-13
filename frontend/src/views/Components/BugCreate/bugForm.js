@@ -55,6 +55,10 @@ export default (props) => {
         <label>Assigned:</label>
         <select name="assigned" onChange={inputChanged} value={bugObject.assigned}>
           <option>Keisha Rosenblatt</option>
+          <option>Bill Ryans</option>
+          <option>Ramanjit O'Reily</option>
+
+
         </select>
         <label>Application Version</label>
         <input
