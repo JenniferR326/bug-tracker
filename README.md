@@ -19,11 +19,11 @@ Installation
 
 -Fork and clone this repo, then:
 
--$ npm install
+-npm install
 
--$ createdb bug-tracker
+-createdb bug-tracker
 
--$ npm run start-client
+-npm run start-client
 
 -Navigate to localhost:8080.
 
