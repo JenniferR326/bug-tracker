@@ -8,7 +8,7 @@ If you've previously installed create-react-app globally via npm install -g crea
 
 (npx comes with npm 5.2+ and higher, see instructions for older npm versions)
 
-Then open http://localhost:3000/ to see your app.
+Then open http://localhost:8080/ to see your app.
 When you’re ready to deploy to production, create a minified bundle with npm run build.
 
 npm start
