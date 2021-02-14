@@ -15,6 +15,8 @@ Current features include:
 -Ability to edit current software bug report and close resolved bugs
 
 
+
+
 Installation
 
 -Fork and clone this repo, then:
