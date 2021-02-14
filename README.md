@@ -1,11 +1,6 @@
+Bug Tracker Application for reporting and assigning software bugs, sorted by priority.
+Frontend: React/Redux  Backend: Node, Express
 
-Creating an App – How to create a new app.
-User Guide – How to develop apps bootstrapped with Create React App.
-Create React App works on macOS, Windows, and Linux.
-If something doesn’t work, please file an issue.
-If you have questions or need help, please ask in GitHub Discussions.
-
-Quick Overview
 npx create-react-app my-app
 cd my-app
 npm start
