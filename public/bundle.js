@@ -13554,7 +13554,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     placeholder: "Bug Name",
     required: true,
     onChange: inputChanged,
-    value: bugObject.name
+    value: bugObject.name || ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Details"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
     name: "details",
     placeholder: "Detailed Description of Bug",
@@ -13586,7 +13586,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     name: "version",
     placeholder: "Application Version",
     onChange: inputChanged,
-    value: bugObject.version
+    value: bugObject.version || ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     type: "submit"
   }, props.title)));

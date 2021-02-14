@@ -23,7 +23,7 @@ export default (props) => {
           placeholder="Bug Name"
           required
           onChange={inputChanged}
-          value={bugObject.name}
+          value={bugObject.name || ""} 
         ></input>
         <label>Details</label>
         <textarea
@@ -65,7 +65,7 @@ export default (props) => {
           name="version"
           placeholder="Application Version"
           onChange={inputChanged}
-          value={bugObject.version}
+          value={bugObject.version || ""}
         ></input>
         <button type="submit">{props.title}</button>
       </form>
