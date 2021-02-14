@@ -4,6 +4,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import App from "./App";
+import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 
 //Reducers
 import authReducer from "./controllers/redux/authSlice";
@@ -18,7 +20,8 @@ const reducer = combineReducers({
 });
 
 const store = configureStore({
-  reducer
+  reducer,
+  middleware: [thunk, logger]
 });
 
 ReactDOM.render(
