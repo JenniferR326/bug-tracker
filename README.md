@@ -20,13 +20,13 @@ ________________________________________________________________________________
 
 Installation
 
--Fork and clone this repo, then:
+Fork and clone this repo, then:
 
 -npm install
 
 -createdb bug-tracker
 
--npm run start-client
+-npm start
 
 -Navigate to localhost:8080.
 
