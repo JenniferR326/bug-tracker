@@ -6,24 +6,25 @@ const db = require('../db/database')
 const Bug = db.define('bug', {
   name: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   },
   details: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   steps: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   priority: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
-  creator: {
-    type: Sequelize.STRING
-  },
-  time: {
-    type: Sequelize.TIME
+  complete: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
+ 
 })
 
 

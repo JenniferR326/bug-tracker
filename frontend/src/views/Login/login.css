@@ -1,7 +1,8 @@
 .loginBG {
   width: 100vw;
   height: 105vh;
-  /* background: url('/public/images/oceanTech.jpeg'); */
+  /* background-image: url('../../../../public/images/mountains.jpeg'); */
+
   background-size: cover;
   grid-column: 1/2;
   background-color: rgba(0, 0, 0, 0.575);

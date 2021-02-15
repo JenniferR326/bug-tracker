@@ -13118,6 +13118,8 @@ function App() {
     exact: true,
     path: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_views_pages_dashboard_dashboard__WEBPACK_IMPORTED_MODULE_6__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+    path: "/viewbugs/:priority"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_views_pages_viewBugs__WEBPACK_IMPORTED_MODULE_4__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
     path: "/viewbugs"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_views_pages_viewBugs__WEBPACK_IMPORTED_MODULE_4__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
     path: "/createbug"
@@ -13129,73 +13131,6 @@ function App() {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
-
-/***/ }),
-
-/***/ "./frontend/src/controllers/bugController.js":
-/*!***************************************************!*\
-  !*** ./frontend/src/controllers/bugController.js ***!
-  \***************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "retrieveBugs": function() { return /* binding */ retrieveBugs; }
-/* harmony export */ });
-/* harmony import */ var _models_bugModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/bugModel */ "./frontend/src/models/bugModel.js");
-
-function retrieveBugs() {
-  var data = [];
-  data.push(new _models_bugModel__WEBPACK_IMPORTED_MODULE_0__.default({
-    _id: 23456789,
-    name: "Crash on Load",
-    details: "Crashes after 3 seconds",
-    steps: "Open application and it will crash",
-    version: "V2.0",
-    assigned: "Keisha Rosenblatt",
-    creator: "Bill Ryans",
-    priority: 1,
-    time: "11:38"
-  }));
-  data.push(new _models_bugModel__WEBPACK_IMPORTED_MODULE_0__.default({
-    _id: 23452789,
-    name: "Won't Load",
-    details: "Crashes after 3 seconds",
-    steps: "Open application and it will crash",
-    version: "V2.0",
-    assigned: "Keisha Rosenblatt",
-    creator: "Bill Ryans",
-    priority: 3,
-    time: "11:40"
-  }));
-  data.push(new _models_bugModel__WEBPACK_IMPORTED_MODULE_0__.default({
-    _id: 23456789,
-    name: "Crash on Load",
-    details: "Crashes after 3 seconds",
-    steps: "Open application and it will crash",
-    version: "V2.0",
-    assigned: "Keisha Rosenblatt",
-    creator: "Bill Ryans",
-    priority: 2,
-    time: "2:38"
-  }));
-  data.push(new _models_bugModel__WEBPACK_IMPORTED_MODULE_0__.default({
-    _id: 23452789,
-    name: "Won't Load",
-    details: "Crashes after 3 seconds",
-    steps: "Open application and it will crash",
-    version: "V2.0",
-    assigned: "Keisha Rosenblatt",
-    creator: "Bill Ryans",
-    priority: 1,
-    time: "12:40"
-  }));
-  var sorted = data.sort(function (a, b) {
-    return a.priority - b.priority;
-  });
-  return sorted;
-}
 
 /***/ }),
 
@@ -13315,34 +13250,194 @@ var _slice$actions = slice.actions,
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getBugs": function() { return /* binding */ getBugs; },
-/* harmony export */   "createBugs": function() { return /* binding */ createBugs; },
-/* harmony export */   "updateBug": function() { return /* binding */ updateBug; },
-/* harmony export */   "markComplete": function() { return /* binding */ markComplete; }
+/* harmony export */   "createBug": function() { return /* binding */ createBug; },
+/* harmony export */   "retrieveBugs": function() { return /* binding */ retrieveBugs; },
+/* harmony export */   "deleteBug": function() { return /* binding */ deleteBug; },
+/* harmony export */   "markComplete": function() { return /* binding */ markComplete; },
+/* harmony export */   "updateBug": function() { return /* binding */ updateBug; }
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
-/* harmony import */ var _bugController__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bugController */ "./frontend/src/controllers/bugController.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+var _extraReducers;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+ // import { retrieveBugs } from "../bugController";
 
  //thunk
 
+var createBug = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("createBug", /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(formInput) {
+    var _yield$axios$post, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/bugs/createbug", formInput);
+
+          case 3:
+            _yield$axios$post = _context.sent;
+            data = _yield$axios$post.data;
+            return _context.abrupt("return", data);
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0);
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+var retrieveBugs = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("retrieveBug", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+  var _yield$axios$get, data;
+
+  return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          _context2.next = 3;
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/bugs");
+
+        case 3:
+          _yield$axios$get = _context2.sent;
+          data = _yield$axios$get.data;
+          return _context2.abrupt("return", data);
+
+        case 8:
+          _context2.prev = 8;
+          _context2.t0 = _context2["catch"](0);
+          console.error(_context2.t0);
+
+        case 11:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  }, _callee2, null, [[0, 8]]);
+})));
+var deleteBug = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("deleteBug", /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/bugs/".concat(id));
+
+          case 3:
+            return _context3.abrupt("return", id);
+
+          case 6:
+            _context3.prev = 6;
+            _context3.t0 = _context3["catch"](0);
+            console.error(_context3.t0);
+
+          case 9:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 6]]);
+  }));
+
+  return function (_x2) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+var markComplete = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("markComplete", /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/bugs/".concat(id), {
+              complete: true
+            });
+
+          case 3:
+            return _context4.abrupt("return", id);
+
+          case 6:
+            _context4.prev = 6;
+            _context4.t0 = _context4["catch"](0);
+            console.error(_context4.t0);
+
+          case 9:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[0, 6]]);
+  }));
+
+  return function (_x3) {
+    return _ref4.apply(this, arguments);
+  };
+}());
 var slice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
   name: "bug",
   initialState: [],
   reducers: {
-    getBugs: function getBugs(state) {
-      return (0,_bugController__WEBPACK_IMPORTED_MODULE_0__.retrieveBugs)();
-    },
-    createBugs: function createBugs(state, actions) {},
-    updateBug: function updateBug(state, actions) {},
-    markComplete: function markComplete(state, action) {}
-  }
+    // getBugs: state => retrieveBugs(),
+    // createBugs: (state, actions) => {},
+    updateBug: function updateBug(state, actions) {}
+  },
+  extraReducers: (_extraReducers = {}, _defineProperty(_extraReducers, createBug.fulfilled, function (state, action) {
+    var newBug = action.payload;
+    if (newBug) state.push(newBug);
+  }), _defineProperty(_extraReducers, retrieveBugs.fulfilled, function (state, action) {
+    while (state.length) {
+      state.pop();
+    }
+
+    state.push.apply(state, _toConsumableArray(action.payload));
+  }), _defineProperty(_extraReducers, deleteBug.fulfilled, function (state, action) {
+    state.splice(state.findIndex(function (bug) {
+      return bug.id === action.payload;
+    }), 1);
+  }), _defineProperty(_extraReducers, markComplete.fulfilled, function (state, action) {
+    var bugId = action.payload;
+    var bugToComplete = state.find(function (bug) {
+      return bug.id === bugId;
+    });
+    bugToComplete.complete = true;
+  }), _extraReducers)
 });
 /* harmony default export */ __webpack_exports__["default"] = (slice.reducer);
-var _slice$actions = slice.actions,
-    getBugs = _slice$actions.getBugs,
-    createBugs = _slice$actions.createBugs,
-    updateBug = _slice$actions.updateBug,
-    markComplete = _slice$actions.markComplete;
+var updateBug = slice.actions.updateBug;
 
 
 /***/ }),
@@ -13440,6 +13535,7 @@ __webpack_require__.r(__webpack_exports__);
 function bug(bug) {
   if (bug !== undefined) {
     this._id = bug._id;
+    this.id = bug.id;
     this.name = bug.name;
     this.details = bug.details;
     this.steps = bug.steps;
@@ -13448,6 +13544,7 @@ function bug(bug) {
     this.assigned = bug.assigned;
     this.creator = bug.creator;
     this.time = bug.time;
+    this.complete = bug.complete;
   }
 }
 
@@ -13510,8 +13607,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _models_bugModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../models/bugModel */ "./frontend/src/models/bugModel.js");
-/* harmony import */ var _bugForm_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./bugForm.css */ "./frontend/src/views/Components/BugCreate/bugForm.css");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _models_bugModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../models/bugModel */ "./frontend/src/models/bugModel.js");
+/* harmony import */ var _controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../controllers/redux/bugSlice */ "./frontend/src/controllers/redux/bugSlice.js");
+/* harmony import */ var _bugForm_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bugForm.css */ "./frontend/src/views/Components/BugCreate/bugForm.css");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -13534,14 +13633,37 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new _models_bugModel__WEBPACK_IMPORTED_MODULE_1__.default(props.bug)),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new _models_bugModel__WEBPACK_IMPORTED_MODULE_2__.default(_objectSpread(_objectSpread({}, props.bug), {}, {
+    priority: 1
+  }))),
       _useState2 = _slicedToArray(_useState, 2),
       bugObject = _useState2[0],
       setBugObject = _useState2[1];
 
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
   function inputChanged(evt) {
     setBugObject(_objectSpread(_objectSpread({}, bugObject), {}, _defineProperty({}, evt.target.name, evt.target.value)));
+  }
+
+  function bugEdited(evt) {
+    evt.preventDefault();
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.editBug)(bugObject.id, bugObject));
+  }
+
+  function bugCreated(evt) {
+    evt.preventDefault();
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.createBug)(bugObject));
+    setBugObject({
+      name: "",
+      details: "",
+      steps: "",
+      priority: 1,
+      version: ""
+    });
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -13555,7 +13677,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     required: true,
     onChange: inputChanged,
     value: bugObject.name || ""
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Details"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Details:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
     name: "details",
     placeholder: "Detailed Description of Bug",
     required: true,
@@ -13588,7 +13710,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     onChange: inputChanged,
     value: bugObject.version || ""
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    type: "submit"
+    type: "submit",
+    onClick: props.title === "Create Bug" ? bugCreated : bugEdited
   }, props.title)));
 });
 
@@ -13633,6 +13756,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
   var bug = new _models_bugModel__WEBPACK_IMPORTED_MODULE_2__.default(props.bug);
@@ -13646,13 +13770,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     setDisplayEdit(!displayEdit);
   }
 
-  function deleteClicked() {}
+  function deleteClicked() {
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_4__.deleteBug)(bug.id));
+    props.clicked();
+  }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "bugView"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Edit_Delete_editPanel__WEBPACK_IMPORTED_MODULE_5__.default, {
     editClicked: editClicked,
-    deleteCicked: deleteClicked
+    deleteClicked: deleteClicked
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: "closeBtn",
     onClick: props.clicked
@@ -13674,9 +13801,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_component_bugViewSection__WEBPACK_IMPORTED_MODULE_1__.default, {
     title: "Time Created",
     info: bug.time
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_component_bugViewSection__WEBPACK_IMPORTED_MODULE_1__.default, {
+    title: "Completed",
+    info: bug.complete ? "Completed" : "Incomplete"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: function onClick() {
-      dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_4__.markComplete)());
+      dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_4__.markComplete)(bug.id));
     }
   }, "Mark Complete")), displayEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BugCreate_bugForm__WEBPACK_IMPORTED_MODULE_6__.default, {
     title: "Edit Bug",
@@ -13877,33 +14007,39 @@ __webpack_require__.r(__webpack_exports__);
     lowCount = filterBugs(3);
   }
 
-  function redirect() {
-    browserHistory.push("/viewbugs");
+  function redirect(filter) {
+    browserHistory.push("/viewbugs/".concat(filter));
   }
 
   function filterBugs(priority) {
     return bugs.filter(function (bug) {
-      return bug.priority === priority;
+      return bug && bug.priority === priority;
     });
   }
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.getBugs)());
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.retrieveBugs)());
   }, [bugs == undefined]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pageContainer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Components_dashboard_card__WEBPACK_IMPORTED_MODULE_1__.default, {
     priority: "1",
     count: highCount.length,
-    clicked: redirect
+    clicked: function clicked() {
+      return redirect("high");
+    }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Components_dashboard_card__WEBPACK_IMPORTED_MODULE_1__.default, {
     priority: "2",
     count: midCount.length,
-    clicked: redirect
+    clicked: function clicked() {
+      return redirect("mid");
+    }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Components_dashboard_card__WEBPACK_IMPORTED_MODULE_1__.default, {
     priority: "3",
     count: lowCount.length,
-    clicked: redirect
+    clicked: function clicked() {
+      return redirect("low");
+    }
   }));
 });
 
@@ -13954,11 +14090,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state;
   }),
-      bugs = _useSelector.bugs; //only run if there are bugs, otherwise don't run
+      bugs = _useSelector.bugs;
 
+  var filter = window.location.pathname.split('/')[2]; //only run if there are bugs, otherwise don't run
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_2__.getBugs)());
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_2__.retrieveBugs)());
   }, [bugs.length < 1]);
 
   function bugClicked(name) {
@@ -13968,6 +14105,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     });
   }
 
+  if (filter === "high") bugs = bugs.filter(function (bug) {
+    return bug.priority === 1;
+  });else if (filter === "mid") bugs = bugs.filter(function (bug) {
+    return bug.priority === 2;
+  });else if (filter === "low") bugs = bugs.filter(function (bug) {
+    return bug.priority === 3;
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "pageContainer"
   }, bugs.map(function (bug, key) {
@@ -14226,7 +14370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background: url('/public/images/oceanTech.jpeg'); */\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/src/views/Login/login.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,aAAa;EACb,sDAAsD;EACtD,sBAAsB;EACtB,gBAAgB;EAChB,sCAAsC;EACtC,+BAA+B;EAC/B,4BAA4B;EAC5B,kBAAkB;;AAEpB;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;EACjB,aAAa;EACb,eAAe;EACf,uBAAuB;EACvB,kBAAkB;;AAEpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,YAAY;EACZ,iBAAiB;AACnB","sourcesContent":[".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background: url('/public/images/oceanTech.jpeg'); */\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background-image: url('../../../../public/images/mountains.jpeg'); */\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/src/views/Login/login.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,aAAa;EACb,uEAAuE;;EAEvE,sBAAsB;EACtB,gBAAgB;EAChB,sCAAsC;EACtC,+BAA+B;EAC/B,4BAA4B;EAC5B,kBAAkB;;AAEpB;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;EACjB,aAAa;EACb,eAAe;EACf,uBAAuB;EACvB,kBAAkB;;AAEpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,YAAY;EACZ,iBAAiB;AACnB","sourcesContent":[".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background-image: url('../../../../public/images/mountains.jpeg'); */\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

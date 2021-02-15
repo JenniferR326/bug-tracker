@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Card from "../../Components/dashboard/card";
 import { useDispatch, useSelector } from "react-redux";
 import {useHistory} from 'react-router-dom'
-import { getBugs } from "../../../controllers/redux/bugSlice";
+import { retrieveBugs } from "../../../controllers/redux/bugSlice";
 
 export default () => {
   const dispatch = useDispatch();
@@ -18,24 +18,24 @@ export default () => {
     lowCount = filterBugs(3)
   }
 
-  function redirect() {
-    browserHistory.push("/viewbugs")
+  function redirect(filter) {
+    browserHistory.push(`/viewbugs/${filter}`)
   }
 
   function filterBugs(priority) {
     return bugs.filter((bug) => {
-      return bug.priority === priority;
+      return bug && (bug.priority === priority);
     });
   }
 
   useEffect(() => {
-    dispatch(getBugs());
+    dispatch(retrieveBugs());
   }, [bugs == undefined]);
   return (
     <div className="pageContainer">
-      <Card priority="1" count={highCount.length} clicked={redirect}/>
-      <Card priority="2" count={midCount.length} clicked={redirect}/>
-      <Card priority="3" count={lowCount.length} clicked={redirect}/>
+      <Card priority="1" count={highCount.length} clicked={()=>redirect("high")}/>
+      <Card priority="2" count={midCount.length} clicked={()=>redirect("mid")}/>
+      <Card priority="3" count={lowCount.length} clicked={()=>redirect("low")}/>
     </div>
   );
 };

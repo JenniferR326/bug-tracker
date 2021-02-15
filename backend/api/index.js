@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 
 router.use("/users", require("../Controller/routes/auth"))
-// router.use("/bugs", require("../Controller/routes/bugs"))
+router.use("/bugs", require("../Controller/routes/bugs"))
 
 
 router.use((req, res, next) => {

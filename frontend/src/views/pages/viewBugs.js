@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBugs } from "../../controllers/redux/bugSlice";
+import { retrieveBugs } from "../../controllers/redux/bugSlice";
 import BugCard from "../BugCard/bugCard";
 import BugView from "../Components/BugView/bugView"
 
@@ -12,11 +12,12 @@ export default (props) => {
     isDisplayed: false
   })
   const dispatch = useDispatch();
-  const { bugs } = useSelector((state) => state);
+  let { bugs } = useSelector((state) => state);
+  const filter = window.location.pathname.split('/')[2]
 
   //only run if there are bugs, otherwise don't run
   useEffect(() => {
-    dispatch(getBugs());
+    dispatch(retrieveBugs());
   }, [bugs.length < 1]);
 
   function bugClicked(name) {
@@ -25,6 +26,9 @@ export default (props) => {
       name: name
     })
   }
+  if (filter === "high") bugs = bugs.filter((bug)=> bug.priority === 1)
+  else if (filter === "mid") bugs = bugs.filter((bug) => bug.priority === 2)
+  else if (filter === "low") bugs = bugs.filter((bug) => bug.priority === 3)
   return (
     <div className="pageContainer">
       {bugs.map((bug, key) => (

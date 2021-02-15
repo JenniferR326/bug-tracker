@@ -1,12 +1,21 @@
 const { green, red } = require("chalk");
 const  db  = require("./backend/db/database");
 const User = require('./backend/Model/userModel');
+const Bug = require("./backend/Model/bugModel")
 
 const users = [{
   name: "joe john",
   password: "123456"
 }];
 
+const bugs = [{
+  name: "crash on load",
+  details: "crashes after 3 seconds",
+  steps: "Load site",
+  priority: 1,
+  creator: "Keisha Rosenblatt",
+  time: "13:30"
+}]
 
 
 const seed = async () => {
@@ -17,6 +26,10 @@ const seed = async () => {
    const createdUser = await Promise.all(users.map(user => {
       return User.create(user)
   }));
+  const createdBug = await Promise.all(bugs.map(bug => {
+    return Bug.create(bug)
+}));
+
 
 
   } catch (err) {

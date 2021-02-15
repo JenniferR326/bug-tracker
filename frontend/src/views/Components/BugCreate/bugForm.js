@@ -1,10 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from "react";
+import {useDispatch} from "react-redux"
 import BugModel from "../../../models/bugModel";
+import {createBug, editBug} from "../../../controllers/redux/bugSlice"
+
 import "./bugForm.css";
 
 export default (props) => {
-  const [bugObject, setBugObject] = useState(new BugModel(props.bug));
+  const [bugObject, setBugObject] = useState(new BugModel({...props.bug, priority: 1}));
+  
+  const dispatch = useDispatch()
 
   function inputChanged(evt) {
     setBugObject({
@@ -12,6 +17,23 @@ export default (props) => {
       [evt.target.name]: evt.target.value,
     });
   }
+  function bugEdited(evt) {
+    evt.preventDefault()
+    dispatch(editBug(bugObject.id, bugObject))
+  }
+  
+  function bugCreated(evt) {
+    evt.preventDefault()
+    dispatch(createBug(bugObject))
+    setBugObject({
+      name: "",
+      details: "",
+      steps: "",
+      priority: 1,
+      version: ""
+    })
+  }
+ 
   return (
     <div className="bugCreate">
       {props.title === "Edit Bug" &&<button className="closeBtn" onClick={props.close}>Close</button>}
@@ -25,7 +47,7 @@ export default (props) => {
           onChange={inputChanged}
           value={bugObject.name || ""} 
         ></input>
-        <label>Details</label>
+        <label>Details:</label>
         <textarea
           name="details"
           placeholder="Detailed Description of Bug"
@@ -67,7 +89,7 @@ export default (props) => {
           onChange={inputChanged}
           value={bugObject.version || ""}
         ></input>
-        <button type="submit">{props.title}</button>
+        <button type="submit" onClick={props.title === "Create Bug" ? bugCreated : bugEdited}>{props.title}</button>
       </form>
     </div>
   );
