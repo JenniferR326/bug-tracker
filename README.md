@@ -12,7 +12,7 @@ Current features include:
 
 -Create bug form
 
--Ability to edit current software bug report and close resolved bugs
+-Ability to edit current software bug report and mark resolved bugs complete
 
 
 ____________________________________________________________________________________________________________________________________________________________
