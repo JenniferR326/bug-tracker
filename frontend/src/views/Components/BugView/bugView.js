@@ -36,11 +36,9 @@ export default (props) => {
         <ViewSection title="Steps" info={bug.steps} />
         <ViewSection title="Priority" info={bug.priority} />
         <ViewSection title="Creator" info={bug.creator} />
-        <ViewSection title="App Version" info={bug.version} />
-        <ViewSection title="Time Created" info={bug.time} />
         <ViewSection title="Completed" info={bug.complete ? "Completed" : "Incomplete"} />
-        
-        <button
+        <ViewSection title="Time Created" info={bug.time} />
+        <button className="markComplete"
           onClick={() => {
             dispatch(markComplete(bug.id));
           }}

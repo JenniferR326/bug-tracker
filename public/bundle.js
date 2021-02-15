@@ -13830,15 +13830,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     title: "Creator",
     info: bug.creator
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_component_bugViewSection__WEBPACK_IMPORTED_MODULE_1__.default, {
-    title: "App Version",
-    info: bug.version
+    title: "Completed",
+    info: bug.complete ? "Completed" : "Incomplete"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_component_bugViewSection__WEBPACK_IMPORTED_MODULE_1__.default, {
     title: "Time Created",
     info: bug.time
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_component_bugViewSection__WEBPACK_IMPORTED_MODULE_1__.default, {
-    title: "Completed",
-    info: bug.complete ? "Completed" : "Incomplete"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "markComplete",
     onClick: function onClick() {
       dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_4__.markComplete)(bug.id));
     }
@@ -14284,7 +14282,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".bugCreate {\n  width: 60vw;\n  background-color: var(--prime-color);\n  display: flex;\n  flex-wrap: wrap;\n  margin: auto;\n  border-radius: 5px;\n  position: absolute;\n  z-index: 10;\n  padding: 1% 5%;\n}\n\n.bugCreate h1 {\n  min-width: 100%;\n  text-align: center;\n  font-size: 2.5rem;\n  border-bottom: 1px groove white;\n}\n\n.bugCreate form {\n  min-width: 80%;\n  display: grid;\n  grid-template-columns: 30% 70%;\n  column-gap: 20px;\n  row-gap: 20px;\n}\n\n.bugCreate label {\n  text-align: right;\n  font-size: 1.5rem;\n}\n\n.bugCreate input,\ntextarea,\nselect {\n  border-radius: 5px;\n  border: none;\n}\n\n.bugCreate button {\n  grid-column: 2;\n}\n", "",{"version":3,"sources":["webpack://./frontend/src/views/Components/BugCreate/bugForm.css"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,oCAAoC;EACpC,aAAa;EACb,eAAe;EACf,YAAY;EACZ,kBAAkB;EAClB,kBAAkB;EAClB,WAAW;EACX,cAAc;AAChB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,iBAAiB;EACjB,+BAA+B;AACjC;;AAEA;EACE,cAAc;EACd,aAAa;EACb,8BAA8B;EAC9B,gBAAgB;EAChB,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,iBAAiB;AACnB;;AAEA;;;EAGE,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,cAAc;AAChB","sourcesContent":[".bugCreate {\n  width: 60vw;\n  background-color: var(--prime-color);\n  display: flex;\n  flex-wrap: wrap;\n  margin: auto;\n  border-radius: 5px;\n  position: absolute;\n  z-index: 10;\n  padding: 1% 5%;\n}\n\n.bugCreate h1 {\n  min-width: 100%;\n  text-align: center;\n  font-size: 2.5rem;\n  border-bottom: 1px groove white;\n}\n\n.bugCreate form {\n  min-width: 80%;\n  display: grid;\n  grid-template-columns: 30% 70%;\n  column-gap: 20px;\n  row-gap: 20px;\n}\n\n.bugCreate label {\n  text-align: right;\n  font-size: 1.5rem;\n}\n\n.bugCreate input,\ntextarea,\nselect {\n  border-radius: 5px;\n  border: none;\n}\n\n.bugCreate button {\n  grid-column: 2;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".bugCreate {\n  width: 60vw;\n  background-color: var(--prime-color);\n  display: flex;\n  flex-wrap: wrap;\n  margin: auto;\n  border-radius: 5px;\n  position: absolute;\n  z-index: 10;\n  padding: 1% 5%;\n}\n\n.bugCreate h1 {\n  min-width: 100%;\n  text-align: center;\n  font-size: 2.5rem;\n  border-bottom: 1px groove white;\n}\n\n.bugCreate form {\n  min-width: 80%;\n  display: grid;\n  grid-template-columns: 30% 70%;\n  column-gap: 20px;\n  row-gap: 20px;\n}\n\n.bugCreate label {\n  text-align: right;\n  font-size: 1.5rem;\n}\n\n.bugCreate input,\ntextarea,\nselect {\n  border-radius: 5px;\n  border: none;\n}\n\n.bugCreate button {\n  grid-column: 2;\n}\n\n", "",{"version":3,"sources":["webpack://./frontend/src/views/Components/BugCreate/bugForm.css"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,oCAAoC;EACpC,aAAa;EACb,eAAe;EACf,YAAY;EACZ,kBAAkB;EAClB,kBAAkB;EAClB,WAAW;EACX,cAAc;AAChB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,iBAAiB;EACjB,+BAA+B;AACjC;;AAEA;EACE,cAAc;EACd,aAAa;EACb,8BAA8B;EAC9B,gBAAgB;EAChB,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,iBAAiB;AACnB;;AAEA;;;EAGE,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,cAAc;AAChB","sourcesContent":[".bugCreate {\n  width: 60vw;\n  background-color: var(--prime-color);\n  display: flex;\n  flex-wrap: wrap;\n  margin: auto;\n  border-radius: 5px;\n  position: absolute;\n  z-index: 10;\n  padding: 1% 5%;\n}\n\n.bugCreate h1 {\n  min-width: 100%;\n  text-align: center;\n  font-size: 2.5rem;\n  border-bottom: 1px groove white;\n}\n\n.bugCreate form {\n  min-width: 80%;\n  display: grid;\n  grid-template-columns: 30% 70%;\n  column-gap: 20px;\n  row-gap: 20px;\n}\n\n.bugCreate label {\n  text-align: right;\n  font-size: 1.5rem;\n}\n\n.bugCreate input,\ntextarea,\nselect {\n  border-radius: 5px;\n  border: none;\n}\n\n.bugCreate button {\n  grid-column: 2;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
