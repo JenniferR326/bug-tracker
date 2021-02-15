@@ -40,14 +40,19 @@ export const markComplete = createAsyncThunk("markComplete", async (id) => {
     console.error(err)
   }
 })
+export const editBug = createAsyncThunk("editBug", async (body) => {
+  try {
+    const {data} = await axios.put(`/api/bugs/${body.id}`, body)
+    return data
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 const slice = createSlice({
   name: "bug",
   initialState: [],
   reducers: {
-    // getBugs: state => retrieveBugs(),
-    // createBugs: (state, actions) => {},
-    updateBug: (state, actions) => {},
   },
   extraReducers: {
     [createBug.fulfilled]: (state, action) => {
@@ -70,10 +75,14 @@ const slice = createSlice({
       const bugId = action.payload
       const bugToComplete = state.find(bug=>bug.id === bugId)
       bugToComplete.complete = true;
+    },
+    [editBug.fulfilled]: (state, action) => {
+      const editedBug = action.payload
+      const bugToEdit = state.find(bug=>bug.id === editedBug.id)
+      Object.assign(bugToEdit, editedBug)
     }
   },
 });
 
 export default slice.reducer;
 
-export const { updateBug } = slice.actions;

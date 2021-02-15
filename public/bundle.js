@@ -13254,7 +13254,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "retrieveBugs": function() { return /* binding */ retrieveBugs; },
 /* harmony export */   "deleteBug": function() { return /* binding */ deleteBug; },
 /* harmony export */   "markComplete": function() { return /* binding */ markComplete; },
-/* harmony export */   "updateBug": function() { return /* binding */ updateBug; }
+/* harmony export */   "editBug": function() { return /* binding */ editBug; }
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -13407,14 +13407,44 @@ var markComplete = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncT
     return _ref4.apply(this, arguments);
   };
 }());
+var editBug = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)("editBug", /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(body) {
+    var _yield$axios$put, data;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _context5.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/bugs/".concat(body.id), body);
+
+          case 3:
+            _yield$axios$put = _context5.sent;
+            data = _yield$axios$put.data;
+            return _context5.abrupt("return", data);
+
+          case 8:
+            _context5.prev = 8;
+            _context5.t0 = _context5["catch"](0);
+            console.error(_context5.t0);
+
+          case 11:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[0, 8]]);
+  }));
+
+  return function (_x4) {
+    return _ref5.apply(this, arguments);
+  };
+}());
 var slice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
   name: "bug",
   initialState: [],
-  reducers: {
-    // getBugs: state => retrieveBugs(),
-    // createBugs: (state, actions) => {},
-    updateBug: function updateBug(state, actions) {}
-  },
+  reducers: {},
   extraReducers: (_extraReducers = {}, _defineProperty(_extraReducers, createBug.fulfilled, function (state, action) {
     var newBug = action.payload;
     if (newBug) state.push(newBug);
@@ -13434,11 +13464,15 @@ var slice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
       return bug.id === bugId;
     });
     bugToComplete.complete = true;
+  }), _defineProperty(_extraReducers, editBug.fulfilled, function (state, action) {
+    var editedBug = action.payload;
+    var bugToEdit = state.find(function (bug) {
+      return bug.id === editedBug.id;
+    });
+    Object.assign(bugToEdit, editedBug);
   }), _extraReducers)
 });
 /* harmony default export */ __webpack_exports__["default"] = (slice.reducer);
-var updateBug = slice.actions.updateBug;
-
 
 /***/ }),
 
@@ -13651,7 +13685,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
   function bugEdited(evt) {
     evt.preventDefault();
-    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.editBug)(bugObject.id, bugObject));
+    dispatch((0,_controllers_redux_bugSlice__WEBPACK_IMPORTED_MODULE_3__.editBug)(bugObject));
   }
 
   function bugCreated(evt) {
@@ -14370,7 +14404,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background-image: url('../../../../public/images/mountains.jpeg'); */\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/src/views/Login/login.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,aAAa;EACb,uEAAuE;;EAEvE,sBAAsB;EACtB,gBAAgB;EAChB,sCAAsC;EACtC,+BAA+B;EAC/B,4BAA4B;EAC5B,kBAAkB;;AAEpB;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;EACjB,aAAa;EACb,eAAe;EACf,uBAAuB;EACvB,kBAAkB;;AAEpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,YAAY;EACZ,iBAAiB;AACnB","sourcesContent":[".loginBG {\n  width: 100vw;\n  height: 105vh;\n  /* background-image: url('../../../../public/images/mountains.jpeg'); */\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".loginBG {\n  width: 100vw;\n  height: 105vh;\n  background-image: url(\"//localhost:8080/images/mountains.jpeg\");\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}", "",{"version":3,"sources":["webpack://./frontend/src/views/Login/login.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,aAAa;EACb,+DAA+D;;EAE/D,sBAAsB;EACtB,gBAAgB;EAChB,sCAAsC;EACtC,+BAA+B;EAC/B,4BAA4B;EAC5B,kBAAkB;;AAEpB;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;EACjB,aAAa;EACb,eAAe;EACf,uBAAuB;EACvB,kBAAkB;;AAEpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,UAAU;EACV,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,YAAY;EACZ,iBAAiB;AACnB","sourcesContent":[".loginBG {\n  width: 100vw;\n  height: 105vh;\n  background-image: url(\"//localhost:8080/images/mountains.jpeg\");\n\n  background-size: cover;\n  grid-column: 1/2;\n  background-color: rgba(0, 0, 0, 0.575);\n  background-blend-mode: multiply;\n  background-attachment: fixed;\n  position: absolute;\n\n}\n\n.loginPanel {\n  background-color: var(--prime-color);\n  width: 30vw;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 25vh auto;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  text-align: center;\n  \n}\n\n.loginPanel h1 {\n  width: 100%;\n}\n\n.loginPanel input {\n  width: 75%;\n  height: 30px;\n  border-radius: 5px;\n  border: none;\n  margin: 10px;\n  padding-left: 5px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 

@@ -19,7 +19,7 @@ export default (props) => {
   }
   function bugEdited(evt) {
     evt.preventDefault()
-    dispatch(editBug(bugObject.id, bugObject))
+    dispatch(editBug(bugObject))
   }
   
   function bugCreated(evt) {

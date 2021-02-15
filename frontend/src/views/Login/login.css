@@ -1,7 +1,7 @@
 .loginBG {
   width: 100vw;
   height: 105vh;
-  /* background-image: url('../../../../public/images/mountains.jpeg'); */
+  background-image: url("//localhost:8080/images/mountains.jpeg");
 
   background-size: cover;
   grid-column: 1/2;
