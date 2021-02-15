@@ -1,6 +1,6 @@
 Bug Tracker
 
-An application I built that allows users to log in and report software bugs, view assigned software bugs on their dashboard, edit, and mark resolved bugs complete.
+An application I built that allows users to log in and report software bugs, view software bugs on their dashboard, edit, and mark resolved bugs complete.
 
 Current features include:
 
