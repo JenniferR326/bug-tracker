@@ -28,7 +28,7 @@ Fork and clone this repo, then:
 
 -npm start
 
--Navigate to localhost:8080.
+-navigate to localhost:8080.
 
 
 
